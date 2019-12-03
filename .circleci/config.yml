@@ -1,0 +1,15 @@
+version: 2.1
+
+orbs:
+  azure-acr: circleci/azure-acr@0.1.3
+
+workflows:
+  build_and_push:
+    jobs:
+      - azure-acr/build-and-push-image:
+          azure-sp: AZURE_SP
+          azure-sp-password: AZURE_SP_PASSWORD
+          azure-sp-tenant: AZURE_SP_TENANT
+          registry-name: $REGISTRY_NAME
+          login-server-name: $LOGIN_SERVER_NAME
+          repo: $REPO
