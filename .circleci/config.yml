@@ -21,10 +21,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: |
-          TAG=$CIRCLE_BUILD_NUM
-          docker build -t saorio/golang:$TAG .
-      - azure-acr/acr-login:
-          registry-name: 
+          TAG=$CIRCLE_SHA1
+          docker build -t golang:$TAG .
+      - azure-acr/acr-login
       - azure-acr/build-and-push-image:
           login-server-name: golang.azurecr.io
           registry-name: golang
