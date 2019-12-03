@@ -3,27 +3,12 @@ version: 2.1
 orbs:
   azure-acr: circleci/azure-acr@0.1.3
 
-jobs:
-  build:
-    parameters:
-      registry-name:
-        type: env_var_name
-        default: REGISTRY_NAME
-      azure-username:
-        type: env_var_name
-        default: AZURE_USERNAME
-      azure-password:
-        type: env_var_name
-        default: AZURE_PASSWORD
-    docker:
-      - image: circleci/golang
-    steps:
-      - checkout
-      - run: |
-          TAG=$CIRCLE_SHA1
-          docker build -t golang:$TAG .
-      - azure-acr/acr-login
+workflows:
+  build_and_push:
+    jobs:
       - azure-acr/build-and-push-image:
-          login-server-name: golang.azurecr.io
-          registry-name: golang
-          repo: golang
+          azure-username: AZURE_USERNAME
+          azure-password: AZURE_PASSWORD
+          registry-name: $REGISTRY_NAME
+          login-server-name: $LOGIN_SERVER_NAME
+          repo: $REPO
