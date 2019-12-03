@@ -7,8 +7,9 @@ workflows:
   build_and_push:
     jobs:
       - azure-acr/build-and-push-image:
-          azure-username: AZURE_USERNAME
-          azure-password: AZURE_PASSWORD
+          azure-sp: AZURE_SP
+          azure-sp-password: AZURE_SP_PASSWORD
+          azure-sp-tenant: AZURE_SP_TENANT
           registry-name: $REGISTRY_NAME
           login-server-name: $LOGIN_SERVER_NAME
           repo: $REPO
